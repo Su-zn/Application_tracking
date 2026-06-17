@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum JobType {
+  INTERNSHIP
+  FULL_TIME
+  PART_TIME
+}
+
+
+enum Status {
+  APPLIED
+  INTERVIEWING
+  OFFER
+  REJECTED
+}
+
+
+model Application {
+  id           String   @id @default(uuid()) @db.Uuid // Using UUID for robust identification
+  companyName  String   @map("company_name")
+  jobTitle     String   @map("job_title")
+  jobType      JobType  @map("job_type")
+  status       Status   @default(APPLIED)
+  appliedDate  DateTime @map("applied_date")
+  notes        String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("applications") // Maps the model to a lowercase snake_case table name in PostgreSQL
+}
