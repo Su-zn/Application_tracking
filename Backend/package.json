@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "dev": "tsx watch src/server.ts",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
